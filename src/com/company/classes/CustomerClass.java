@@ -10,12 +10,24 @@ public class CustomerClass {
     private String phone;
     private Address address;
 
+
+    //CONSTRUCTOR
+    public CustomerClass(int id, String name, String surname, String phone, Address address) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    //GETTERS
     public int getId() { return id; }
     public String getName() { return name; }
     public String getSurname() { return surname; }
     public String getPhone() { return phone; }
     public Address getAddress() { return address; }
 
+    //SETTERS
     public void setId(int id) {
         this.id = id;
     }

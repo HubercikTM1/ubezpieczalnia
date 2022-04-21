@@ -2,7 +2,7 @@ package com.company.classes;
 
 import java.util.UUID;
 
-public class CustomerClass {
+public abstract class CustomerClass {
 
     private int id;
     private String name;

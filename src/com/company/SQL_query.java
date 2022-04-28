@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.Properties;
 
 public class SQL_query {
-    public static void query(String args[]) throws SQLException, ClassNotFoundException {
+    public static void query() throws SQLException, ClassNotFoundException {
 
         String url = "jdbc:sqlite:E:\\ubezpieczalnia\\ubezpieczalniadb.sqlite";
 
@@ -19,104 +19,65 @@ public class SQL_query {
         //CUSTOMERS
         String dropTableCustomers = "DROP TABLE IF EXISTS Customers";
         st.execute(dropTableCustomers);
-        String createTableCustomers = "create table Customers\n" +
-                "(\n" +
-                "\tid Integer not null\n" +
-                "\t\tconstraint Customers_pk\n" +
-                "\t\t\tprimary key autoincrement,\n" +
-                "\tname String,\n" +
-                "\tsurname String,\n" +
-                "\tphone String,\n" +
-                "\taddress Address\n" +
-                ")\n" +
-                "\n" +
-                "create unique index Customers_id_uindex\n" +
-                "\ton Customers (id)";
+        String createTableCustomers = "create table Customers(id Integer not null constraint Customers_pk" +
+                " primary key autoincrement, name String, surname String, phone String, address Address) " +
+                "create unique index Customers_id_uindex on Customers (id)";
 
         st.execute(createTableCustomers);
+
 
         //DAMAGES
         String dropTableDamages = "DROP TABLE IF EXISTS Damages";
         st.execute(dropTableDamages);
-        String createTableDamages = "create table Damages\n" +
-                "(\n" +
-                "\tid Integer not null\n" +
-                "\t\tconstraint Damages_pk\n" +
-                "\t\t\tprimary key autoincrement,\n" +
-                "\tpolicyClass PolicyClass,\n" +
-                "\tdocuments String,\n" +
-                "\tdamageType DamageType,\n" +
-                "\tvictim CustomerClass\n" +
-                ")\n" +
-                "\n" +
-                "create unique index Damages_id_uindex\n" +
-                "\ton Damages (id)";
+        String createTableDamages = "create table Damages(id Integer not null constraint Damages_pk" +
+                " primary key autoincrement, policyClass PolicyClass, documents String, damageType DamageType," +
+                " victim CustomerClass) create unique index Damages_id_uindex on Damages (id)";
+
         st.execute(createTableDamages);
+
 
         //EVENTS
         String dropTableEvents = "DROP TABLE IF EXISTS Events";
         st.execute(dropTableEvents);
-        String createTableEvents = "create table Events\n" +
-                "(\n" +
-                "\tid Integer not null\n" +
-                "\t\tconstraint Events_pk\n" +
-                "\t\t\tprimary key autoincrement,\n" +
-                "\teventDate Date,\n" +
-                "\tdamageClass DamageClass,\n" +
-                "\teventPlace String,\n" +
-                "\tprocess String\n" +
-                ")\n" +
-                "\n" +
-                "create unique index Events_id_uindex\n" +
-                "\ton Events (id)";
+        String createTableEvents = "create table Events(id Integer not null constraint Events_pk" +
+                " primary key autoincrement, eventDate Date, damageClass DamageClass, eventPlace String," +
+                " process String) create unique index Events_id_uindex on Events (id)";
+
         st.execute(createTableEvents);
+
 
         //POLICIES
         String dropTablePolicies = "DROP TABLE IF EXISTS Policies";
         st.execute(dropTablePolicies);
-        String createTablePolicies = "create table Policies\n" +
-                "(\n" +
-                "\tid Integer not null\n" +
-                "\t\tconstraint Policies_pk\n" +
-                "\t\t\tprimary key autoincrement,\n" +
-                "\tpolicyHolder CustomerClass,\n" +
-                "\tpolicyInsured CustomerClass,\n" +
-                "\tpolicyBeneficiary CustomerClass,\n" +
-                "\tRisk RiskClass,\n" +
-                "\tpolicy_from Date,\n" +
-                "\tpolicy_to Date,\n" +
-                "\tcontributionAmount PolicyType\n" +
-                ")\n" +
-                "\n" +
-                "create unique index Policies_id_uindex\n" +
-                "\ton Policies (id)";
+        String createTablePolicies = "create table Policies(id Integer not null constraint Policies_pk" +
+                " primary key autoincrement, policyHolder CustomerClass, policyInsured CustomerClass, policyBeneficiary CustomerClass," +
+                " Risk RiskClass, policy_from Date, policy_to Date, contributionAmount PolicyType) create unique index Policies_id_uindex on Policies (id)";
+
         st.execute(createTablePolicies);
+
 
         //RISKS
         String dropTableRisks = "DROP TABLE IF EXISTS Risks";
         st.execute(dropTableRisks);
-        String createTableRisks = "create table Risks\n" +
-                "(\n" +
-                "\tid Integer not null\n" +
-                "\t\tconstraint Risks_pk\n" +
-                "\t\t\tprimary key autoincrement,\n" +
-                "\tprice_from double,\n" +
-                "\tprice_to double,\n" +
-                "\tsecurity_from Date,\n" +
-                "\tsecurity_to Date,\n" +
-                "\tdescription String,\n" +
-                "\tpolicyType PolicyType\n" +
-                ")\n" +
-                "\n" +
-                "create unique index Risks_id_uindex\n" +
-                "\ton Risks (id)";
+        String createTableRisks = "create table Risks (id Integer not null constraint Risks_pk " +
+                "primary key autoincrement, price_from double, price_to double, security_from Date," +
+                " security_to Date, description String, policyType PolicyType) create unique index Risks_id_uindex on Risks (id)";
+
         st.execute(createTableRisks);
 
 
-        ResultSet rs = st.executeQuery("");
+
+        //INSERTS
+        String insertStatement = "INSERT INTO Customers VALUES(1, 'Jan', 'Kowalski', '123456789', 'Wisniowa, Warsaw, 12-345')";
+
+        st.execute(insertStatement);
+
+        ResultSet rs = st.executeQuery("SELECT name, surname, phone FROM Customers");
 
         while(rs.next()){
-            System.out.println(rs.getString(""));
+            System.out.println(rs.getString("name"));
+            System.out.println(rs.getString("surname"));
+            System.out.println(rs.getString("phone"));
         }
 
     }

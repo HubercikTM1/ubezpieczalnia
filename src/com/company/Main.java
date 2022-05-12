@@ -14,5 +14,8 @@ public class Main {
             e.printStackTrace();
         }
 
+
+        //sqlite-jdbc mam w external libraries a nie w lib
+
     }
 }

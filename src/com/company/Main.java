@@ -15,6 +15,10 @@ public class Main {
         }
 
 
+        FileWriterUsingJFrame fwj = new FileWriterUsingJFrame();
+
+
+        //------------------
         //sqlite-jdbc mam w external libraries a nie w lib
 
     }
